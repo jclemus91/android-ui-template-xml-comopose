@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.ksp)
 }
 
@@ -28,12 +27,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
+
+    kotlin { jvmToolchain(17) }
     buildFeatures {
         compose = true
     }
@@ -49,11 +47,12 @@ dependencies {
     androidTestImplementation(libs.compose.ui.test.junit4)
 
     // -------- Views (legacy) --------
-    implementation(libs.bundles.views.core)
+    // implementation(libs.bundles.views.core)
 
     // -------- Utilities --------
     implementation(libs.coil.compose)
     implementation(libs.coil.core)
+    implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
     implementation(libs.kotlinx.serialization.json)
