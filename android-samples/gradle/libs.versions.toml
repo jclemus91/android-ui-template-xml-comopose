@@ -24,7 +24,11 @@ navUi = "2.8.0"
 # Utils
 coil = "2.7.0"
 room = "2.6.1"
-serialization = "1.7.2"
+retrofit = "2.11.0"
+converterGson = "2.9.0"
+gson = "2.11.0"
+loggingInterceptor = "4.12.0"
+okhttp = "4.12.0"
 
 # Test
 junit4 = "4.13.2"
@@ -76,7 +80,11 @@ coil-core = { module = "io.coil-kt:coil", version.ref = "coil" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 
 # Test
 junit = { module = "junit:junit", version.ref = "junit4" }
