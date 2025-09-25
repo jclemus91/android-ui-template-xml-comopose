@@ -1,18 +1,133 @@
 package com.jclemus.androidsamples.data
 
+import com.jclemus.androidsamples.domain.Comment
+import com.jclemus.androidsamples.domain.Post
+import com.jclemus.androidsamples.domain.SuggestedFriend
 import com.jclemus.androidsamples.domain.User
+import kotlinx.coroutines.delay
 
-class SocialRepository {
+class SocialRepository(
+    private val socialGraphAlgorithms: SocialGraphAlgorithms = SocialGraphAlgorithms()
+) {
 
     private val users = mapOf(
-        1 to User(id = 1, name = "Julio Lemus", username = "jclemus", friends = listOf<Long>(1, 2)),
-        2 to User(id = 2, name = "Jared Pruitt", username = "jp", friends = listOf<Long>(2, 3)),
-        3 to User(id = 3, name = "Leyla Jacobson", username = "lj", friends = listOf<Long>(3, 4, 5)),
-        4 to User(id = 4, name = "Gregory Gomez", username = "gg", friends = listOf<Long>(1, 2)),
-        5 to User(id = 5, name = "Zariyah Short", username = "zs", friends = listOf<Long>(5,6,7,8,9)),
-        6 to User(id = 6, name = "Lawrence Goodman", username = "lg", friends = listOf<Long>(9)),
-        7 to User(id = 7, name = "Royalty Zimmerman", username = "rz", friends = listOf<Long>(6)),
-        8 to User(id = 8, name = "Yareli Craig", username = "rc", friends = listOf<Long>(1, 7)),
-        9 to User(id = 9, name = "Ariya Palmer", username = "ap", friends = listOf<Long>(8,9))
+        "user1" to User(
+            id = "user1",
+            name = "Cindy L. Stephens",
+            username = "cls",
+            image = "",
+            friends = listOf("user2")
+        ),
+        "user2" to User(
+            id = "user2",
+            name = "Homer Simpson",
+            username = "ndw",
+            image = "",
+            friends = listOf("user1", "user3", "user4", "user5")
+        ),
+        "user3" to User(
+            id = "user3",
+            name = "Naomi D. White",
+            username = "ndw",
+            image = "",
+            friends = listOf("user2")
+        ),
+        "user4" to User(
+            id = "user4",
+            name = "Alondra",
+            username = "ndw",
+            image = "",
+            friends = listOf("user2")
+        ),
+        "user5" to User(
+            id = "user5",
+            name = "Elvia",
+            username = "ndw",
+            image = "",
+            friends = listOf("user2", "user5")
+        ),
+        "user6" to User(
+            id = "user6",
+            name = "Laura",
+            username = "ndw",
+            image = "",
+            friends = listOf("user5")
+        )
     )
+
+    private val posts: List<Post> = listOf<Post>(
+        Post(
+            id = "post1",
+            userId = "user1",
+            content = "This is a nice post",
+            likes = 1346,
+            isLiked = false,
+            comments = listOf(
+                Comment(
+                    id = "comment1",
+                    userId = "user1",
+                    content = "This is a 1 level comment"
+                )
+            )
+        ),
+        Post(
+            id = "post2",
+            userId = "user1",
+            content = "This is a nice post",
+            likes = 1346,
+            isLiked = false,
+            comments = listOf(
+                Comment(
+                    id = "comment1",
+                    userId = "user1",
+                    content = "This is a 1 level comment"
+                )
+            )
+        ),
+        Post(
+            id = "post3",
+            userId = "user1",
+            content = "This is a nice post",
+            likes = 1346,
+            isLiked = true,
+            comments = listOf(
+                Comment(
+                    id = "comment1",
+                    userId = "user1",
+                    content = "This is a 1 level comment"
+                )
+            )
+        ),
+        Post(
+            id = "post4",
+            userId = "user1",
+            content = "This is a nice post",
+            likes = 1346,
+            isLiked = false,
+            comments = listOf(
+                Comment(
+                    id = "comment1",
+                    userId = "user1",
+                    content = "This is a 1 level comment"
+                )
+            )
+        )
+    )
+
+    suspend fun getPosts(): List<Post> {
+        delay(1000)
+        return posts.sortedByDescending { it.timestamp }
+    }
+
+    suspend fun getSuggestedFriends(userId: String): List<SuggestedFriend> {
+        delay(1000)
+        return socialGraphAlgorithms.findSuggestedFriends(
+            currentUserId = userId,
+            users = users
+        )
+    }
+
+    fun getUserById(userId: String): User? {
+        return users[userId]
+    }
 }

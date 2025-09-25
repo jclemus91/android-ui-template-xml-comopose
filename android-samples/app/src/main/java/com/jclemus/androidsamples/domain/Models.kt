@@ -1,30 +1,29 @@
 package com.jclemus.androidsamples.domain
 
-data class User(
-    val id: Long,
-    val name: String,
-    val username: String,
-    val avatar: String = "",
-    val friends: List<Long> = emptyList()
-)
-
 data class Post(
-    val id: Long,
-    val userId: Long,
+    val id: String,
+    val userId: String,
     val content: String,
-    val timestamp: Long,
     val likes: Int,
-    val isLiked: Boolean = false,
+    val isLiked: Boolean,
     val comments: List<Comment> = emptyList(),
-    val parentId: Long? = null
+    val timestamp: Long = System.currentTimeMillis()
 )
 
 data class Comment(
-    val id: Long,
-    val userId: Long,
+    val id: String,
+    val userId: String,
     val content: String,
-    val timestamp: Long,
+    val timestamp: Long = System.currentTimeMillis(),
     val replies: List<Comment> = emptyList()
+)
+
+data class User(
+    val id: String,
+    val name: String,
+    val username: String,
+    val image: String,
+    val friends: List<String> = emptyList()
 )
 
 data class SuggestedFriend(
